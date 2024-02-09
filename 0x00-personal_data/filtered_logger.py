@@ -64,3 +64,19 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         user=username,
         password=passwd
     )
+
+
+def main():
+    """main function"""
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM users;")
+    data = get_logger()
+    for row in cursor:
+        line = ''
+        line += [f'{key}={value}; ' for key, value in row.items()]
+        data.info(line)
+
+
+if __name__ == "__main__":
+    main()
