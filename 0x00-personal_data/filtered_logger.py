@@ -2,9 +2,9 @@
 """module for filtered_logger"""
 from typing import List
 import re
+import os
 import logging
 import mysql.connector
-import os
 
 PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 
