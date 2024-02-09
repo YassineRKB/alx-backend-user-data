@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """module for filtered_logger"""
 from typing import List
-import re, logging
+import re
+import logging
 
 
 def filter_datum(fields: List[str],
@@ -27,6 +28,6 @@ class RedactingFormatter(logging.Formatter):
 
     def format(self, record: logging.LogRecord) -> str:
         record.message = filter_datum(self.fields, self.REDACTION,
-                                  record.message, self.SEPARATOR)
+                                      record.message, self.SEPARATOR)
         res = super().format(record)
         return res
