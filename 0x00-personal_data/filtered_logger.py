@@ -74,7 +74,8 @@ def main():
     data = get_logger()
     for row in cursor:
         line = ''
-        line += [f'{key}={value}; ' for key, value in row.items()]
+        for key, value in row.items():
+            line += f'{key}={value}; '
         data.info(line)
 
 
