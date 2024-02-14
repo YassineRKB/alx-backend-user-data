@@ -49,7 +49,10 @@ class BasicAuth(Auth):
         if not user_email or not user_pwd \
                 or type(user_email) != str or type(user_pwd) != str:
             return None
-        user = User.search({'email': user_email})
+        try:
+            user = User.search({'email': user_email})
+        except KeyError:
+            return None
         if not user or not user[0].is_valid_password(user_pwd):
             return None
         return user[0]
