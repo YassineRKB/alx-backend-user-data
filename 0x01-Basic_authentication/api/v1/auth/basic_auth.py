@@ -27,7 +27,7 @@ class BasicAuth(Auth):
         try:
             return base64.b64decode(base64_authorization_header.encode())\
                     .decode('utf-8')
-        except base64.binascii.Error:
+        except (base64.binascii.Error, UnicodeDecodeError):
             return None
 
     def extract_user_credentials(
@@ -43,7 +43,7 @@ class BasicAuth(Auth):
     def user_object_from_credentials(self,
                                      user_email: str,
                                      user_pwd: str) -> TypeVar('User'):
-        """Retrieves a user object based on provided email and password."""
+        """User object from credentials."""
         if not user_email or not user_pwd \
                 or type(user_email) != str or type(user_pwd) != str:
             return None
@@ -51,3 +51,11 @@ class BasicAuth(Auth):
         if not user or not user[0].is_valid_password(user_pwd):
             return None
         return user[0]
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """Current user."""
+        auth = self.authorization_header(request)
+        extracted = self.extract_base64_authorization_header(auth)
+        decoded = self.decode_base64_authorization_header(extracted)
+        email, password = self.extract_user_credentials(decoded)
+        return self.user_object_from_credentials(email, password)
