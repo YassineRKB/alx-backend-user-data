@@ -27,6 +27,7 @@ def status() -> str:
 def stats() -> str:
     """GET /api/v1/stats"""
     from models.user import User
+    
     stats = {}
     stats['users'] = User.count()
     return jsonify(stats)
