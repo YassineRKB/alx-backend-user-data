@@ -25,7 +25,7 @@ elif os.getenv("AUTH_TYPE") == "basic_auth":
 
 @app.before_request
 def authentication():
-    """Perform authentication checks before handling each request."""
+    """Authenticates request."""
     if auth:
         if auth.require_auth(request.path, ['/api/v1/status/',
                                             '/api/v1/unauthorized/',
@@ -51,7 +51,7 @@ def unauthorized(error) -> str:
 
 @app.errorhandler(404)
 def not_found(error) -> str:
-    """ Error handler for 404 status code"""
+    """Not found handler"""
     return jsonify({"error": "Not found"}), 404
 
 
