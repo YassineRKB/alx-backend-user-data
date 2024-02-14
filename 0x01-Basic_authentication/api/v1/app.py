@@ -35,6 +35,8 @@ def authentication():
             if not auth.current_user(request):
                 return abort(403)
     return
+
+
 @app.errorhandler(403)
 def forbidden(error) -> str:
     """Forbidden handler"""
