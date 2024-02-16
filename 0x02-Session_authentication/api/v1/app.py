@@ -25,6 +25,7 @@ elif os.getenv("AUTH_TYPE") == "basic_auth":
 def authentication():
     """Authenticates request."""
     if auth:
+        request.current_user = auth.current_user(request)
         if auth.require_auth(request.path, ['/api/v1/status/',
                                             '/api/v1/unauthorized/',
                                             '/api/v1/forbidden/']):
