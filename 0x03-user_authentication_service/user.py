@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """the User module"""
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base as theBase
+from sqlalchemy.ext.declarative import declarative_base
 
-Base = theBase()
+Base = declarative_base()
 
 
 class User(Base):
