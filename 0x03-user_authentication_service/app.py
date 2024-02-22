@@ -78,6 +78,20 @@ def get_reset_password_token() -> str:
     return jsonify({"email": email, "reset_token": reset_token})
 
 
+@app.route("/reset_password", methods=["PUT"])
+def update_password() -> str:
+    """password update route"""
+    email = request.form.get("email")
+    reset_token = request.form.get("reset_token")
+    new_password = request.form.get("new_password")
+    msgOk = {"email": email, "message": "Password updated"}
+    try:
+        AUTH.update_password(reset_token, new_password)
+    except ValueError:
+        abort(403)
+    return jsonify(msgOk)
+
+
 if __name__ == "__main__":
     app.run(
         host=host,
