@@ -36,7 +36,6 @@ def log_in(email: str, password: str) -> str:
     return None
 
 
-
 def log_out(session_id: str) -> None:
     """logout"""
     pass
